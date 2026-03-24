@@ -41,14 +41,6 @@
 <h2 class="section-title">Tradicionais</h2>
 <p class="section-desc">Os favoritos de todo ano, feitos com muito carinho e chocolate de qualidade.</p>
 </div>
-<div class="shell-picker-wrap reveal">
-<p class="shell-picker-label">Tipo de casca</p>
-<div class="shell-options">
-<button class="shell-btn active" onclick="selectShell(this,'Ao leite')">Ao leite</button>
-<button class="shell-btn" onclick="selectShell(this,'Meio amargo')">Meio amargo</button>
-<button class="shell-btn" onclick="selectShell(this,'Choc. branco')">Choc. branco</button>
-</div>
-</div>
 <div id="tradicionais-cards"></div>
 <div class="obs-section reveal">
 <p class="obs-section-title">Informações do pedido</p>
@@ -65,14 +57,6 @@
 <p class="section-eyebrow">Sabores premium</p>
 <h2 class="section-title">Especiais</h2>
 <p class="section-desc">Combinações únicas com ingredientes selecionados para quem quer surpreender.</p>
-</div>
-<div class="shell-picker-wrap reveal">
-<p class="shell-picker-label">Tipo de casca</p>
-<div class="shell-options">
-<button class="shell-btn active" onclick="selectShell(this,'Ao leite')">Ao leite</button>
-<button class="shell-btn" onclick="selectShell(this,'Meio amargo')">Meio amargo</button>
-<button class="shell-btn" onclick="selectShell(this,'Choc. branco')">Choc. branco</button>
-</div>
 </div>
 <div id="especiais-cards"></div>
 <div class="obs-section reveal">
@@ -185,6 +169,9 @@
 <p class="section-desc">Um presente ideal para surpreender amigos, colegas ou até para degustar várias opções.</p>
 <p style="font-size:12px;font-weight:800;color:var(--brown-light);margin-top:6px;">📲 Consultar disponibilidade</p>
 </div>
+<div class="reveal" style="text-align:center;margin-bottom:24px;">
+<img src="images/mini-ovos.png" alt="Mini Ovos" style="width:100%;max-width:480px;border-radius:16px;object-fit:cover;">
+</div>
 <div class="mini-grid reveal">
 <div class="mini-card" id="mini-a" onclick="selectMini('mini-a')">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;">
@@ -263,18 +250,158 @@
 </div>
 </div>
 </div>
-<div class="mini-flavors reveal" style="flex-direction:column;align-items:flex-start;gap:14px;">
+<button id="mini-confirm-btn" onclick="confirmMiniQty()" style="display:none;width:100%;padding:14px;background:var(--brown);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;margin-bottom:16px;letter-spacing:0.3px;">Confirmar quantidade e escolher sabores →</button>
+<div id="mini-flavor-section" style="display:none;background:var(--brown-deep);border-radius:22px;padding:20px;margin-bottom:16px;flex-direction:column;gap:10px;">
+
+<div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px;">
 <div style="display:flex;align-items:center;gap:10px;">
-<span class="mini-flavors-icon">🍫</span>
-<strong style="color:#fff;font-size:14px;">Escolha a categoria de sabor:</strong>
+<span style="font-size:26px;">🍫</span>
+<strong style="color:#fff;font-size:15px;line-height:1.2;">Escolha os sabores:</strong>
 </div>
-<div style="display:flex;gap:10px;flex-wrap:wrap;">
-<button class="kit-option" id="flavor-cat-trad" onclick="selectMiniFlavorCat('tradicionais')">Tradicionais</button>
-<button class="kit-option" id="flavor-cat-esp" onclick="selectMiniFlavorCat('especiais')">Especiais</button>
+<span id="mini-flavor-progress" style="font-size:12px;font-weight:900;color:var(--caramel);background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px;white-space:nowrap;">0 de 0 escolhidos</span>
 </div>
-<div id="mini-flavor-list" style="display:none;width:100%;">
-<p style="font-size:12px;font-weight:800;color:var(--cream-deeper);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;">Escolha o sabor:</p>
-<div id="mini-flavor-btns" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+
+<p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:2.5px;color:var(--caramel);margin:6px 0 4px;">— Tradicionais —</p>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Brigadeiro</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Brigadeiro',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Brigadeiro" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Brigadeiro',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Brigadeiro-l" onclick="selectMiniShell('Brigadeiro','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Brigadeiro-a" onclick="selectMiniShell('Brigadeiro','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Brigadeiro-b" onclick="selectMiniShell('Brigadeiro','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Ninho</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Ninho',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Ninho" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Ninho',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Ninho-l" onclick="selectMiniShell('Ninho','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Ninho-a" onclick="selectMiniShell('Ninho','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Ninho-b" onclick="selectMiniShell('Ninho','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Beijinho</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Beijinho',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Beijinho" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Beijinho',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Beijinho-l" onclick="selectMiniShell('Beijinho','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Beijinho-a" onclick="selectMiniShell('Beijinho','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Beijinho-b" onclick="selectMiniShell('Beijinho','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Doce de Leite</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Doce de Leite',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Doce-de-Leite" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Doce de Leite',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Doce-de-Leite-l" onclick="selectMiniShell('Doce de Leite','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Doce-de-Leite-a" onclick="selectMiniShell('Doce de Leite','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Doce-de-Leite-b" onclick="selectMiniShell('Doce de Leite','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<p style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:2.5px;color:var(--caramel);margin:10px 0 4px;">— Especiais —</p>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Surpresa de Morango</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Surpresa de Morango',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Surpresa-de-Morango" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Surpresa de Morango',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Surpresa-de-Morango-l" onclick="selectMiniShell('Surpresa de Morango','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Surpresa-de-Morango-a" onclick="selectMiniShell('Surpresa de Morango','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Surpresa-de-Morango-b" onclick="selectMiniShell('Surpresa de Morango','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Maracuj&#225; com Chocolate</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Maracuj&#225; com Chocolate',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Maracuja-com-Chocolate" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Maracuj&#225; com Chocolate',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Maracuja-com-Chocolate-l" onclick="selectMiniShell('Maracuj&#225; com Chocolate','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Maracuja-com-Chocolate-a" onclick="selectMiniShell('Maracuj&#225; com Chocolate','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Maracuja-com-Chocolate-b" onclick="selectMiniShell('Maracuj&#225; com Chocolate','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Pa&#231;oca com Nutella</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Pa&#231;oca com Nutella',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Pacoca-com-Nutella" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Pa&#231;oca com Nutella',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Pacoca-com-Nutella-l" onclick="selectMiniShell('Pa&#231;oca com Nutella','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Pacoca-com-Nutella-a" onclick="selectMiniShell('Pa&#231;oca com Nutella','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Pacoca-com-Nutella-b" onclick="selectMiniShell('Pa&#231;oca com Nutella','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Ninho com Nutella</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Ninho com Nutella',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Ninho-com-Nutella" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Ninho com Nutella',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Ninho-com-Nutella-l" onclick="selectMiniShell('Ninho com Nutella','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Ninho-com-Nutella-a" onclick="selectMiniShell('Ninho com Nutella','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Ninho-com-Nutella-b" onclick="selectMiniShell('Ninho com Nutella','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Dois Amores</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Dois Amores',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Dois-Amores" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Dois Amores',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Dois-Amores-l" onclick="selectMiniShell('Dois Amores','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Dois-Amores-a" onclick="selectMiniShell('Dois Amores','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Dois-Amores-b" onclick="selectMiniShell('Dois Amores','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+<div style="display:flex;flex-direction:row;align-items:center;">
+<span style="color:#fff;font-size:15px;font-weight:800;flex:1;">Oreo</span>
+<div style="display:flex;flex-direction:row;align-items:center;gap:6px;">
+<button onclick="changeMiniFlavorQty('Oreo',-1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+<span id="mfq-Oreo" style="min-width:32px;text-align:center;font-size:17px;font-weight:900;color:#fff;">0</span>
+<button onclick="changeMiniFlavorQty('Oreo',1)" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.1);color:#fff;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+</div></div>
+<div style="display:flex;gap:6px;">
+<button id="mfs-Oreo-l" onclick="selectMiniShell('Oreo','Ao leite',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.35);background:var(--brown);color:#fff;font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Ao leite</button>
+<button id="mfs-Oreo-a" onclick="selectMiniShell('Oreo','Meio amargo',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">M. amargo</button>
+<button id="mfs-Oreo-b" onclick="selectMiniShell('Oreo','Choc. branco',this)" style="flex:1;padding:7px 4px;border-radius:40px;border:2px solid rgba(255,255,255,0.25);background:transparent;color:rgba(255,255,255,0.7);font-size:11px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;">Branco</button>
+</div>
 </div>
 </div>
 <button class="mini-add-btn reveal" onclick="addMini()">+ Adicionar ao pedido</button>
@@ -296,7 +423,10 @@
 </div>
 <div class="modal-overlay" id="cart-modal" onclick="closeCartOutside(event)">
 <div class="modal" onclick="event.stopPropagation()">
-<div class="modal-handle"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+<div class="modal-handle" style="margin:0;"></div>
+<button onclick="document.getElementById('cart-modal').classList.remove('open')" style="width:32px;height:32px;border-radius:50%;border:none;background:var(--cream-dark);color:var(--text-mid);font-size:18px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+</div>
 <h2 class="modal-title">Meu Pedido</h2>
 <p class="modal-subtitle">Confira e finalize pelo WhatsApp</p>
 <div id="cart-items-list"></div>
@@ -324,5 +454,6 @@
 </div>
 </div>
 </div>
-<script src="script.js"></script></body>
+<script src="script.js?v=2"></script>
+<script>history.scrollRestoration='manual';window.scrollTo(0,0);</script></body>
 </html>
